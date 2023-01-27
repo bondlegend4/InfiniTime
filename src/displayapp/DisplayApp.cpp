@@ -103,7 +103,7 @@ void DisplayApp::Start(System::BootErrors error) {
   if (error == System::BootErrors::TouchController) {
     LoadNewScreen(Apps::Error, DisplayApp::FullRefreshDirections::None);
   } else {
-    LoadNewScreen(Apps::Clock, DisplayApp::FullRefreshDirections::None);
+    LoadNewScreen(Apps::Timer, DisplayApp::FullRefreshDirections::None);
   }
 
   if (pdPASS != xTaskCreate(DisplayApp::Process, "displayapp", 800, this, 0, &taskHandle)) {
@@ -240,13 +240,16 @@ void DisplayApp::Refresh() {
           }
         };
         if (!currentScreen->OnTouchEvent(gesture)) {
-          if (currentApp == Apps::Clock) {
+          if (currentApp == Apps::Timer) {
             switch (gesture) {
               case TouchEvents::SwipeUp:
                 LoadNewScreen(Apps::Launcher, DisplayApp::FullRefreshDirections::Up);
                 break;
+              case TouchEvents::SwipeLeft:
+                LoadNewScreen(Apps::Notifications, DisplayApp::FullRefreshDirections::LefttAnim);
+                break;
               case TouchEvents::SwipeDown:
-                LoadNewScreen(Apps::Notifications, DisplayApp::FullRefreshDirections::Down);
+                LoadNewScreen(Apps::Clock, DisplayApp::FullRefreshDirections::Down);
                 break;
               case TouchEvents::SwipeRight:
                 LoadNewScreen(Apps::QuickSettings, DisplayApp::FullRefreshDirections::RightAnim);
@@ -274,13 +277,13 @@ void DisplayApp::Refresh() {
         }
         break;
       case Messages::ButtonLongPressed:
-        if (currentApp != Apps::Clock) {
+        if (currentApp != Apps::Timer) {
           if (currentApp == Apps::Notifications) {
-            LoadNewScreen(Apps::Clock, DisplayApp::FullRefreshDirections::Up);
+            LoadNewScreen(Apps::Timer, DisplayApp::FullRefreshDirections::Up);
           } else if (currentApp == Apps::QuickSettings) {
-            LoadNewScreen(Apps::Clock, DisplayApp::FullRefreshDirections::LeftAnim);
+            LoadNewScreen(Apps::Timer, DisplayApp::FullRefreshDirections::LeftAnim);
           } else {
-            LoadNewScreen(Apps::Clock, DisplayApp::FullRefreshDirections::Down);
+            LoadNewScreen(Apps::Timer, DisplayApp::FullRefreshDirections::Down);
           }
           appStackDirections.Reset();
           returnAppStack.Reset();
