@@ -17,7 +17,15 @@ namespace Pinetime {
         static constexpr const char* check = "\xEF\x95\xA0";
         static constexpr const char* music = "\xEF\x80\x81";
         static constexpr const char* tachometer = "\xEF\x8F\xBD";
-        static constexpr const char* paintbrush = "\xEF\x87\xBC";
+        static constexpr const char* road = "\xEF\x80\x98";
+        static constexpr const char* diceD20 = "\xEF\x9B\x8F";
+        static constexpr const char* diceD6 = "\xEF\x9B\x91";
+        static constexpr const char* diceFive = "\xEF\x94\xA3";
+        static constexpr const char* diceFour = "\xEF\x94\xA4";
+        static constexpr const char* diceOne = "\xEF\x94\xA5";
+        static constexpr const char* diceSix = "\xEF\x94\xA6";
+        static constexpr const char* diceThree = "\xEF\x94\xA7";
+        static constexpr const char* diceTwo = "\xEF\x94\xA8";
         static constexpr const char* paddle = "\xEF\x91\x9D";
         static constexpr const char* map = "\xEF\x96\xa0";
         static constexpr const char* phone = "\xEF\x82\x95";
@@ -33,7 +41,6 @@ namespace Pinetime {
         static constexpr const char* stopWatch = "\xEF\x8B\xB2";
         static constexpr const char* hourGlass = "\xEF\x89\x92";
         static constexpr const char* lapsFlag = "\xEF\x80\xA4";
-        static constexpr const char* drum = "\xEF\x95\xA9";
         static constexpr const char* chartLine = "\xEF\x88\x81";
         static constexpr const char* eye = "\xEF\x81\xAE";
         static constexpr const char* home = "\xEF\x80\x95";

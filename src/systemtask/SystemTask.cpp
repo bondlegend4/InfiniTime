@@ -395,7 +395,7 @@ void SystemTask::Work() {
               alarmController.State() != AlarmController::AlarmState::Alerting) {
             if (state == SystemTaskState::Sleeping) {
               GoToRunning();
-              displayApp.PushMessage(Pinetime::Applications::Display::Messages::Clock);
+              displayApp.PushMessage(Pinetime::Applications::Display::Messages::SingleLane);
             }
             motorController.RunForDuration(35);
           }
@@ -407,7 +407,7 @@ void SystemTask::Work() {
               alarmController.State() != AlarmController::AlarmState::Alerting) {
             if (state == SystemTaskState::Sleeping) {
               GoToRunning();
-              displayApp.PushMessage(Pinetime::Applications::Display::Messages::Clock);
+              displayApp.PushMessage(Pinetime::Applications::Display::Messages::SingleLane);
             }
             motorController.RunForDuration(35);
           }

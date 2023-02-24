@@ -14,10 +14,10 @@
 #include "displayapp/screens/Clock.h"
 #include "displayapp/screens/FirmwareUpdate.h"
 #include "displayapp/screens/FirmwareValidation.h"
-#include "displayapp/screens/InfiniPaint.h"
 #include "displayapp/screens/Paddle.h"
+#include "displayapp/screens/SingleLane.h"
+#include "displayapp/screens/Dice.h"
 #include "displayapp/screens/StopWatch.h"
-#include "displayapp/screens/Metronome.h"
 #include "displayapp/screens/Music.h"
 #include "displayapp/screens/Navigation.h"
 #include "displayapp/screens/Notifications.h"
@@ -103,7 +103,7 @@ void DisplayApp::Start(System::BootErrors error) {
   if (error == System::BootErrors::TouchController) {
     LoadNewScreen(Apps::Error, DisplayApp::FullRefreshDirections::None);
   } else {
-    LoadNewScreen(Apps::Timer, DisplayApp::FullRefreshDirections::None);
+    LoadNewScreen(Apps::SingleLane, DisplayApp::FullRefreshDirections::None);
   }
 
   if (pdPASS != xTaskCreate(DisplayApp::Process, "displayapp", 800, this, 0, &taskHandle)) {
@@ -240,7 +240,7 @@ void DisplayApp::Refresh() {
           }
         };
         if (!currentScreen->OnTouchEvent(gesture)) {
-          if (currentApp == Apps::Timer) {
+          if (currentApp == Apps::SingleLane) {
             switch (gesture) {
               case TouchEvents::SwipeUp:
                 LoadNewScreen(Apps::Launcher, DisplayApp::FullRefreshDirections::Up);
@@ -269,7 +269,7 @@ void DisplayApp::Refresh() {
       } break;
       case Messages::ButtonPushed:
         if (!currentScreen->OnButtonPushed()) {
-          if (currentApp == Apps::Clock) {
+          if (currentApp == Apps::SingleLane) {
             PushMessageToSystemTask(System::Messages::GoToSleep);
           } else {
             LoadPreviousScreen();
@@ -277,20 +277,19 @@ void DisplayApp::Refresh() {
         }
         break;
       case Messages::ButtonLongPressed:
-        if (currentApp != Apps::Timer) {
+        if (currentApp != Apps::SingleLane) {
           if (currentApp == Apps::Notifications) {
-            LoadNewScreen(Apps::Timer, DisplayApp::FullRefreshDirections::Up);
+            LoadNewScreen(Apps::SingleLane, DisplayApp::FullRefreshDirections::Up);
           } else if (currentApp == Apps::QuickSettings) {
-            LoadNewScreen(Apps::Timer, DisplayApp::FullRefreshDirections::LeftAnim);
+            LoadNewScreen(Apps::SingleLane, DisplayApp::FullRefreshDirections::LeftAnim);
           } else {
-            LoadNewScreen(Apps::Timer, DisplayApp::FullRefreshDirections::Down);
+            LoadNewScreen(Apps::SingleLane, DisplayApp::FullRefreshDirections::Down);
           }
           appStackDirections.Reset();
           returnAppStack.Reset();
         }
         break;
       case Messages::ButtonLongerPressed:
-        // Create reboot app and open it instead
         LoadNewScreen(Apps::SysInfo, DisplayApp::FullRefreshDirections::Up);
         break;
       case Messages::ButtonDoubleClicked:
@@ -309,8 +308,8 @@ void DisplayApp::Refresh() {
         // Added to remove warning
         // What should happen here?
         break;
-      case Messages::Clock:
-        LoadNewScreen(Apps::Clock, DisplayApp::FullRefreshDirections::None);
+      case Messages::SingleLane:
+        LoadNewScreen(Apps::SingleLane, DisplayApp::FullRefreshDirections::None);
         break;
     }
   }
@@ -463,11 +462,15 @@ void DisplayApp::LoadScreen(Apps app, DisplayApp::FullRefreshDirections directio
     case Apps::StopWatch:
       currentScreen = std::make_unique<Screens::StopWatch>(this, *systemTask);
       break;
+    case Apps::SingleLane:
+      currentScreen = std::make_unique<Screens::StopWatch>(this, *systemTask);
+      break;
+    //TODO change function call
+    case Apps::Dice: 
+      currentScreen = std::make_unique<Screens::StopWatch>(this, *systemTask);
+      break;
     case Apps::Twos:
       currentScreen = std::make_unique<Screens::Twos>(this);
-      break;
-    case Apps::Paint:
-      currentScreen = std::make_unique<Screens::InfiniPaint>(this, lvgl, motorController);
       break;
     case Apps::Paddle:
       currentScreen = std::make_unique<Screens::Paddle>(this, lvgl);
@@ -480,9 +483,6 @@ void DisplayApp::LoadScreen(Apps app, DisplayApp::FullRefreshDirections directio
       break;
     case Apps::HeartRate:
       currentScreen = std::make_unique<Screens::HeartRate>(this, heartRateController, *systemTask);
-      break;
-    case Apps::Metronome:
-      currentScreen = std::make_unique<Screens::Metronome>(this, motorController, *systemTask);
       break;
     case Apps::Motion:
       currentScreen = std::make_unique<Screens::Motion>(this, motionController);

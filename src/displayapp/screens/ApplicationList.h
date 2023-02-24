@@ -41,16 +41,16 @@ namespace Pinetime {
         static constexpr std::array<Tile::Applications, appsPerScreen * nScreens> applications {{
           {Symbols::stopWatch, Apps::StopWatch},
           {Symbols::clock, Apps::Alarm},
-          {Symbols::hourGlass, Apps::Timer},
+          {Symbols::road, Apps::SingleLane}, //paint removed |Single Lane app
           {Symbols::shoe, Apps::Steps},
-          {Symbols::heartBeat, Apps::HeartRate},
           {Symbols::music, Apps::Music},
+          {Symbols::diceD6, Apps::Music}, //metronome removed |Heads and Tails app
 
-          {Symbols::paintbrush, Apps::Paint},
+          {Symbols::chartLine, Apps::Motion},
           {Symbols::paddle, Apps::Paddle},
           {"2", Apps::Twos},
-          {Symbols::chartLine, Apps::Motion},
-          {Symbols::drum, Apps::Metronome},
+          {Symbols::hourGlass, Apps::Timer},
+          {Symbols::heartBeat, Apps::HeartRate},
           {Symbols::map, Apps::Navigation},
         }};
         ScreenList<nScreens> screens;
