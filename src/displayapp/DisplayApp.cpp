@@ -16,6 +16,7 @@
 #include "displayapp/screens/FirmwareValidation.h"
 #include "displayapp/screens/Paddle.h"
 #include "displayapp/screens/SingleLane.h"
+#include "displayapp/screens/SingleLaneTimer.h"
 #include "displayapp/screens/Dice.h"
 #include "displayapp/screens/StopWatch.h"
 #include "displayapp/screens/Music.h"
@@ -463,6 +464,10 @@ void DisplayApp::LoadScreen(Apps app, DisplayApp::FullRefreshDirections directio
       currentScreen = std::make_unique<Screens::StopWatch>(this, *systemTask);
       break;
     case Apps::SingleLane:
+      currentScreen =
+        std::make_unique<Screens::SingleLane>(this, settingsController, batteryController, bleController, dateTimeController);
+      break;
+    case Apps::SingleLaneTimer:
       currentScreen = std::make_unique<Screens::StopWatch>(this, *systemTask);
       break;
     //TODO change function call

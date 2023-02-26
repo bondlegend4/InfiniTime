@@ -23,6 +23,7 @@ namespace Pinetime {
       Navigation,
       StopWatch,
       SingleLane,
+      SingleLaneTimer,
       Motion,
       Steps,
       Weather,
