@@ -41,10 +41,10 @@ namespace Pinetime {
         static constexpr std::array<Tile::Applications, appsPerScreen * nScreens> applications {{
           {Symbols::stopWatch, Apps::StopWatch},
           {Symbols::clock, Apps::Alarm},
-          {Symbols::road, Apps::SingleLane}, //paint removed |Single Lane app
+          {Symbols::clock, Apps::SingleLane}, //paint removed |SingleLane app
           {Symbols::shoe, Apps::Steps},
           {Symbols::music, Apps::Music},
-          {Symbols::diceD6, Apps::Music}, //metronome removed |Heads and Tails app
+          {Symbols::diceD6, Apps::Music}, //metronome removed |dice can be Heads or Tails/ D6 /D8 app
 
           {Symbols::chartLine, Apps::Motion},
           {Symbols::paddle, Apps::Paddle},
